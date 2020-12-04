@@ -36,12 +36,12 @@ $productList = $productModel->searchProducts($q);
                         <h5 class="card-title"><?php echo $item['product_name'] ?></h5>
                         <p class="card-text"><?php echo $item['product_price'] ?></p>
                     </div>
-                   
                 </div>
             </div>
             <?php
             }
             ?>
+
         </div>
     </div>
 </body>

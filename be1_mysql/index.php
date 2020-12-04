@@ -4,22 +4,27 @@ spl_autoload_register(function ($class_name) {
     require './app/models/' . $class_name . '.php';
 });
 
-$productModel = new ProductModel();
-
 $page = 1;
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 
 $perPage = 3;
-// $productList = $productModel->getProductsAll();
-$productList = $productModel->getProducts($page, $perPage);
+
+$productModel = new ProductModel();
+$productList = $productModel->getProductsByPage($page, $perPage);
 
 $categoryModel = new CategoryModel();
 $categoryList = $categoryModel->getCategories();
 
-$totalRow = $productModel->getToTalRow();
-$pageLinks = Pagination::createPageLink($totalRow, $perPage, $page);
+$totalRow = $productModel->getTotalRow();
+
+$pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
+
+// if (isset($_GET['delete'])) {
+//     $delete=$_GET['delete'];
+// $productModel->deleteProduct($delete);
+// }
 ?>
 
 <!DOCTYPE html>
@@ -80,15 +85,16 @@ $pageLinks = Pagination::createPageLink($totalRow, $perPage, $page);
                             <h5 class="card-title"><?php echo $item['product_name'] ?></h5>
                             <p class="card-text"><?php echo $item['product_price'] ?></p>
                         </div>
+                        <!-- <a href="./?delete=<//?php echo $item['id'] ?>">Delete</a> -->
                     </div>
                 </div>
             <?php
             }
             ?>
-        </div>
-    </div>
-    <?php echo $pageLinks; ?>
 
+        </div>
+        <?php echo $pageLinks; ?>
+    </div>
 </body>
 
 </html>

@@ -8,9 +8,15 @@ spl_autoload_register(function ($class_name) {
 $pathURI = explode('-', $_SERVER['REQUEST_URI']);
 $id = $pathURI[count($pathURI) - 1];
 
-//$id = $_GET['id'];
 $productModel = new ProductModel();
 $item = $productModel->getProductById($id);
+
+// if (isset($_GET['delete'])) {
+//     $delete=(int)$_GET['delete'];
+//     var_dump($delete);
+//     $productModel->deleteProduct($delete);
+//     header('location:../index.php');
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +38,7 @@ $item = $productModel->getProductById($id);
                 <p>
                     <?php echo $item['product_description'] ?>
                 </p>
+                <!-- <a href="./?delete=<?php// echo $id ?>">Delete</a> -->
             </div>
         </div>
     </div>
